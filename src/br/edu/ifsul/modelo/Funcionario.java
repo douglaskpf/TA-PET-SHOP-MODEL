@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,16 +33,20 @@ public class Funcionario implements Serializable {
     @Column(name = "funcao", nullable = false)    
     private String funcao;
     
-    @NotNull
+       @NotNull(message = "O Pessoa não pode ser nula")
     @ManyToOne
-    @JoinColumn(name = "pessoa", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "pessoa", referencedColumnName = "id", nullable = false,
+            foreignKey = @ForeignKey(name = "fk_funcionario_pessoa"))    
     private Pessoa pessoa;
-    
-    @NotNull
+       
+       
+    @NotNull(message = "O Serviço não pode ser nulo")
     @ManyToOne
-    @JoinColumn(name = "servico", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "servico", referencedColumnName = "id", nullable = false,
+            foreignKey = @ForeignKey(name = "fk_fucnionario_servico"))        
     private Servico servico;
     
+        
     
     public Funcionario() {
     }

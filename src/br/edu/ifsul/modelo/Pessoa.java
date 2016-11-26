@@ -14,19 +14,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
-//@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "pessoa")
 public class Pessoa implements Serializable {
 
@@ -66,30 +63,19 @@ public class Pessoa implements Serializable {
     @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL,
             orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Telefone> telefones = new ArrayList<>();
-    
-    
-    @OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL,
-            orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Funcionario> funcionarios = new ArrayList<>();
-    
-    
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "servico", referencedColumnName = "id", nullable = true)
-    private Servico servico;
-
+      
    
-    @ManyToMany
-    @JoinTable(name = "desejos",
+  @ManyToMany
+    @JoinTable(name = "produtos",
             joinColumns
             = @JoinColumn(name = "pessoa", referencedColumnName = "pessoa", nullable = false),
             inverseJoinColumns
-            = @JoinColumn(name = "servico", referencedColumnName = "nome", nullable = false),
+            = @JoinColumn(name = "produto", referencedColumnName = "nome", nullable = false),
             uniqueConstraints = {
                 @UniqueConstraint(
-                        name = "UK_permissoes",
-                        columnNames = {"pessoa", "servico"})})
-    private List<Servico> desejos = new ArrayList<>();
+                        name = "UK_produtos",
+                        columnNames = {"pessoa", "produto"})})
+    private List<Produto> produtos = new ArrayList<>();
 
     public Pessoa() {
 
@@ -103,16 +89,7 @@ public class Pessoa implements Serializable {
     public void removerTelefone(int index) {
         this.telefones.remove(index);
     }
-
-     public void adicionarFuncionario(Funcionario obj) {
-        obj.setPessoa(this);
-        this.funcionarios.add(obj);
-    }
-
-    public void removerFuncionario(int index) {
-        this.funcionarios.remove(index);
-    }
-    
+ 
     
     public Integer getId() {
         return id;
@@ -169,15 +146,15 @@ public class Pessoa implements Serializable {
     public void setTelefones(List<Telefone> telefones) {
         this.telefones = telefones;
     }
-
-    public List<Servico> getDesejos() {
-        return desejos;
+    
+     public List<Produto> getProdutos() {
+        return produtos;
     }
 
-    public void setDesejos(List<Servico> desejos) {
-        this.desejos = desejos;
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
-
+        
     @Override
     public int hashCode() {
         int hash = 3;
@@ -202,26 +179,5 @@ public class Pessoa implements Serializable {
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return nome;
-    }
-
-    public Servico getServico() {
-        return servico;
-    }
-
-    public void setServico(Servico servico) {
-        this.servico = servico;
-    }
-
-    public List<Funcionario> getFuncionarios() {
-        return funcionarios;
-    }
-
-    public void setFuncionarios(List<Funcionario> funcionarios) {
-        this.funcionarios = funcionarios;
-    }
-
+    
 }

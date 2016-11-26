@@ -1,6 +1,7 @@
 package br.edu.ifsul.testes.Junit;
 
 import br.edu.ifsul.modelo.Pessoa;
+import br.edu.ifsul.modelo.Produto;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -8,6 +9,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 
 public class TestePersistirPessoa {
@@ -40,6 +42,8 @@ public class TestePersistirPessoa {
             obj.setEndereco("Nove de Julho, 319 São Cristóvão");
             obj.setRg("20172517069");
             obj.setCpf("01189728044");
+            Produto p = em.find(Produto.class,"Shampoo");
+            obj.getProdutos().add(p);
                         
             em.getTransaction().begin();
             em.persist(obj);

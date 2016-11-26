@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -55,27 +56,18 @@ public class Servico implements Serializable {
     //cliente que contratou o serviço      
     @NotNull(message = "O Cliente não pode ser nulo")
     @ManyToOne
-    @JoinColumn(name = "pessoa", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "pessoa", referencedColumnName = "id", nullable = false,
+            foreignKey = @ForeignKey(name = "fk_servico_pessoa"))
     private Pessoa pessoa;
 
     //funcionarios que fazem parte do serviço
-    @OneToMany(mappedBy = "servico", cascade = CascadeType.ALL,
+   @OneToMany(mappedBy = "servico", cascade = CascadeType.ALL, 
             orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Funcionario> funcionarios;
+    private List<Funcionario> funcionarios = new ArrayList<>();
 
         
-    /*desejos de serviços do cliente 
-    @ManyToMany
-    @JoinTable(name = "desejos_servicos",
-            joinColumns
-            = @JoinColumn(name = "servico", referencedColumnName = "id",
-                    nullable = false),
-            inverseJoinColumns
-            = @JoinColumn(name = "pessoa", referencedColumnName = "id",
-                    nullable = false))
-    private List<Pessoa> desejam = new ArrayList<>();*/
 
-    //funcionarios que fazem parte do serviço
+  
     public Servico() {
     }
     
@@ -131,16 +123,6 @@ public class Servico implements Serializable {
         this.data = data;
     }
 
-    /*cliente ManyToMany
-    public List<Pessoa> getDesejam() {
-        return desejam;
-    }
-
-    //cliente ManyToMany
-    public void setDesejam(List<Pessoa> desejam) {
-        this.desejam = desejam;
-    }
-*/
     //cliente ManyToOne
     public Pessoa getPessoa() {
         return pessoa;
@@ -185,12 +167,5 @@ public class Servico implements Serializable {
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return nome;
-    }
-
-   
-
+    
 }

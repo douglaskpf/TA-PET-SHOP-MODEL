@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,11 +35,12 @@ public class Telefone implements Serializable {
     @Column(name = "descricao",  length = 20)
     private String descricao;
     
-    @NotNull
+   
+    @NotNull(message = "O Pessoa não pode ser nula")
     @ManyToOne
-    @JoinColumn(name = "pessoa", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "pessoa", referencedColumnName = "id", nullable = false, 
+            foreignKey = @ForeignKey(name = "fk_telefone_pessoa"))    
     private Pessoa pessoa;
-
     
     
     public Telefone() {
@@ -99,11 +101,6 @@ public class Telefone implements Serializable {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return numero;
     }
 
 }
