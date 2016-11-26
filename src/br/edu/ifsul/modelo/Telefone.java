@@ -35,7 +35,6 @@ public class Telefone implements Serializable {
     @Column(name = "descricao",  length = 20)
     private String descricao;
     
-   
     @NotNull(message = "O Pessoa não pode ser nula")
     @ManyToOne
     @JoinColumn(name = "pessoa", referencedColumnName = "id", nullable = false, 

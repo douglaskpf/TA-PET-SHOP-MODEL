@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @Table(name = "produto")
 public class Produto implements Serializable {
 
-      @Id
+    @Id
     @Column(name = "nome", length = 30, nullable = false)      
     private String nome;
     

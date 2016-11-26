@@ -28,10 +28,9 @@ import org.hibernate.validator.constraints.br.CPF;
 public class Pessoa implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "seq_pessoa", sequenceName = "seq_pessoa_id",
-            allocationSize = 1)
+    @SequenceGenerator(name = "seq_pessoa", sequenceName = "seq_pessoa_id", allocationSize = 1)
     @GeneratedValue(generator = "seq_pessoa", strategy = GenerationType.SEQUENCE)
-    Integer id;
+    private Integer id;
 
     @NotBlank(message = "O nome deve ser informado")
     @Length(max = 50, message = "O nome deve ter até {max} caracteres")
@@ -60,7 +59,8 @@ public class Pessoa implements Serializable {
     @Column(name = "cpf", length = 14, nullable = false, unique = true)
     private String cpf;
 
-    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL,
+    
+    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, 
             orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Telefone> telefones = new ArrayList<>();
       

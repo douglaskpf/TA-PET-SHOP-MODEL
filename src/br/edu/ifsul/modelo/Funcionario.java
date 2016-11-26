@@ -25,7 +25,7 @@ public class Funcionario implements Serializable {
     @GeneratedValue(generator = "seq_funcionario", strategy = GenerationType.SEQUENCE)    
     private Integer id;
     
-    @NotNull(message = "Campo Matrícula")
+    @NotNull(message = "Campo Matrícula não pode ser nulo")
     @Column(name = "matricula", nullable = false)     
     private Integer matricula;
     
@@ -33,7 +33,7 @@ public class Funcionario implements Serializable {
     @Column(name = "funcao", nullable = false)    
     private String funcao;
     
-       @NotNull(message = "O Pessoa não pode ser nula")
+    @NotNull(message = "O Pessoa não pode ser nula")
     @ManyToOne
     @JoinColumn(name = "pessoa", referencedColumnName = "id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_funcionario_pessoa"))    
@@ -43,7 +43,7 @@ public class Funcionario implements Serializable {
     @NotNull(message = "O Serviço não pode ser nulo")
     @ManyToOne
     @JoinColumn(name = "servico", referencedColumnName = "id", nullable = false,
-            foreignKey = @ForeignKey(name = "fk_fucnionario_servico"))        
+            foreignKey = @ForeignKey(name = "fk_funcionario_servico"))        
     private Servico servico;
     
         
@@ -91,12 +91,11 @@ public class Funcionario implements Serializable {
     public void setServico(Servico servico) {
         this.servico = servico;
     }
-   
-  
+
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 29 * hash + Objects.hashCode(this.id);
+        hash = 53 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -117,6 +116,6 @@ public class Funcionario implements Serializable {
         }
         return true;
     }
-
+   
  
 }
