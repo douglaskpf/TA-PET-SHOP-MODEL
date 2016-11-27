@@ -11,12 +11,10 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-
 public class TestePersistirPessoa {
-    
-  EntityManagerFactory emf;
-  EntityManager em;
-    
+
+    EntityManagerFactory emf;
+    EntityManager em;
 
     public TestePersistirPessoa() {
 
@@ -24,14 +22,16 @@ public class TestePersistirPessoa {
 
     @Before
     public void setUp() {
-        emf = Persistence.createEntityManagerFactory("TA-PET-SHOP-WebPULocal");
+        emf = Persistence.createEntityManagerFactory("TA-PET-SHOP-ModelPU");
         em = emf.createEntityManager();
     }
+
     @After
     public void tearDown() {
         em.close();
         emf.close();
     }
+
     @Test
     public void testePersistirPais() {
         boolean exception = false;
@@ -41,10 +41,8 @@ public class TestePersistirPessoa {
             obj.setEmail("Douglas@gmail.com");
             obj.setEndereco("Nove de Julho, 319 São Cristóvão");
             obj.setRg("20172517069");
-            obj.setCpf("01189728044");
-            Produto p = em.find(Produto.class,"Shampoo");
-            obj.getProdutos().add(p);
-                        
+            obj.setCpf("43052374311");
+          
             em.getTransaction().begin();
             em.persist(obj);
             em.getTransaction().commit();
@@ -52,9 +50,9 @@ public class TestePersistirPessoa {
             e.printStackTrace();
             exception = true;
         }
-        
+
         // verificando se o resultado é igual ao esperado
         Assert.assertEquals(false, exception);
     }
-    
+
 }

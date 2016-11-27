@@ -1,4 +1,3 @@
-
 package br.edu.ifsul.modelo;
 
 import java.io.Serializable;
@@ -15,39 +14,31 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-
 @Entity
 @Table(name = "funcionario")
 public class Funcionario implements Serializable {
-    
+
     @Id
     @SequenceGenerator(name = "seq_funcionario", sequenceName = "seq_funcionario_id", allocationSize = 1)
-    @GeneratedValue(generator = "seq_funcionario", strategy = GenerationType.SEQUENCE)    
+    @GeneratedValue(generator = "seq_funcionario", strategy = GenerationType.SEQUENCE)
     private Integer id;
-    
-    @NotNull(message = "Campo Matrícula não pode ser nulo")
-    @Column(name = "matricula", nullable = false)     
-    private Integer matricula;
-    
+
     @NotNull(message = "Campo função não pode ser nulo")
-    @Column(name = "funcao", nullable = false)    
+    @Column(name = "funcao", nullable = false)
     private String funcao;
-    
+
     @NotNull(message = "O Pessoa não pode ser nula")
     @ManyToOne
     @JoinColumn(name = "pessoa", referencedColumnName = "id", nullable = false,
-            foreignKey = @ForeignKey(name = "fk_funcionario_pessoa"))    
+            foreignKey = @ForeignKey(name = "fk_funcionario_pessoa"))
     private Pessoa pessoa;
-       
-       
+
     @NotNull(message = "O Serviço não pode ser nulo")
     @ManyToOne
     @JoinColumn(name = "servico", referencedColumnName = "id", nullable = false,
-            foreignKey = @ForeignKey(name = "fk_funcionario_servico"))        
+            foreignKey = @ForeignKey(name = "fk_funcionario_servico"))
     private Servico servico;
-    
-        
-    
+
     public Funcionario() {
     }
 
@@ -57,15 +48,6 @@ public class Funcionario implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    
-       public Integer getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(Integer matricula) {
-        this.matricula = matricula;
     }
 
     public String getFuncao() {
@@ -116,6 +98,5 @@ public class Funcionario implements Serializable {
         }
         return true;
     }
-   
- 
+
 }

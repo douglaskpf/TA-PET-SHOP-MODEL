@@ -22,7 +22,7 @@ public class TestePersistirTelefone {
     
     @Before
      public void setUp() {
-        emf = Persistence.createEntityManagerFactory("TA-PET-SHOP-WebPULocal");
+        emf = Persistence.createEntityManagerFactory("TA-PET-SHOP-ModelPU");
         em = emf.createEntityManager();
     }
      
@@ -36,7 +36,7 @@ public class TestePersistirTelefone {
     public void teste(){
         Boolean exception = false;
         try {
-            Pessoa p = em.find(Pessoa.class, 4);
+            Pessoa p = em.find(Pessoa.class, 1);
             Telefone t = new Telefone();
             t.setNumero("(54)9987-4564");
             t.setDescricao("Celular");

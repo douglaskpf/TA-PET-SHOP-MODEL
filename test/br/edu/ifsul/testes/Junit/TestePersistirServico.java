@@ -24,7 +24,7 @@ public class TestePersistirServico {
 
     @Before
     public void setUp() {
-        emf = Persistence.createEntityManagerFactory("TA-PET-SHOP-WebPULocal");
+        emf = Persistence.createEntityManagerFactory("TA-PET-SHOP-ModelPU");
         em = emf.createEntityManager();
     }
 
@@ -43,11 +43,10 @@ public class TestePersistirServico {
             obj.setNome("Servico de Cursos sobre Java2");
             obj.setDescricao("Servico de cursos sobre desenvolvimento em Java2");
             obj.setPreco(1000.00);
-            obj.setPessoa(em.find(Pessoa.class, 4));
+            obj.setPessoa(em.find(Pessoa.class, 1));
             
            Funcionario f = new Funcionario();
-            f.setPessoa(em.find(Pessoa.class, 4));
-            f.setMatricula(1);
+            f.setPessoa(em.find(Pessoa.class, 1));
             f.setFuncao("Esteticista");
             obj.adicionarFuncionario(f);           
       

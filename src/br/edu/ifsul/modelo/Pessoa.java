@@ -68,7 +68,7 @@ public class Pessoa implements Serializable {
   @ManyToMany
     @JoinTable(name = "produtos",
             joinColumns
-            = @JoinColumn(name = "pessoa", referencedColumnName = "pessoa", nullable = false),
+            = @JoinColumn(name = "pessoa", referencedColumnName = "nome", nullable = false),
             inverseJoinColumns
             = @JoinColumn(name = "produto", referencedColumnName = "nome", nullable = false),
             uniqueConstraints = {
